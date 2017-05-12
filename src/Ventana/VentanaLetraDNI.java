@@ -6,12 +6,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Logica.CalcularLetra;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 /*
@@ -26,7 +31,7 @@ public class VentanaLetraDNI extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-
+	private CalcularLetra calc;
 
 
 	/**
@@ -56,8 +61,20 @@ public class VentanaLetraDNI extends JFrame {
 		textField_1 = new JTextField();
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
+		textField_1.setEditable(false);
 		
 		JButton btnCalcular = new JButton("Calcular");
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				calc = new CalcularLetra(textField.getText());
+				if(calc.error == false){
+					textField_1.setText(String.valueOf(calc.devolverLetra()));
+				}else{
+					textField_1.setText(String.valueOf(calc.devolverError()));
+				}
+				
+			}
+		});
 		btnCalcular.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(btnCalcular);
 	}
